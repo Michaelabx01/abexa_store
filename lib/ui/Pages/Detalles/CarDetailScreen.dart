@@ -1,17 +1,19 @@
+// ignore_for_file: file_names
+
+import 'package:abexastore/config/cars.dart';
 import 'package:flutter/material.dart';
-import '../../../models/cars.dart';
 
 class CarDetailScreen extends StatelessWidget {
   final CarModel carModel;
 
-  CarDetailScreen({required this.carModel});
+  const CarDetailScreen({super.key, required this.carModel});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[200],
       appBar: AppBar(
-        title: Text(carModel.name),
+        title: Text(carModel.modelo),
       ),
       body: Align(
         alignment: Alignment.topCenter,
@@ -25,10 +27,12 @@ class CarDetailScreen extends StatelessWidget {
                 width: 200,
               ),
               const SizedBox(height: 16.0),
-              Text(
-                carModel.name,
-                style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-              ),
+             Text(
+            carModel.modelo,
+            textAlign: TextAlign.center,  
+            style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+          ),
+
               const SizedBox(height: 16.0),
               Text(
                 carModel.location,
@@ -36,7 +40,7 @@ class CarDetailScreen extends StatelessWidget {
               ),
               const SizedBox(height: 16.0),
               Text(
-                '€ ${carModel.price.toStringAsFixed(2)}',
+                '\$ ${carModel.price.toStringAsFixed(2)}',
                 style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 16.0),
@@ -91,13 +95,7 @@ class CarDetailScreen extends StatelessWidget {
             ),
 
               const SizedBox(height: 16.0),
-            ElevatedButton(
-                onPressed: () {
-                  // Aquí puedes agregar la lógica para realizar la compra
-                  // Puedes navegar a una nueva pantalla o mostrar un diálogo de confirmación, por ejemplo.
-                },
-                child: Text('Comprar'),
-              ),
+          
             ],
           ),
         ),

@@ -1,23 +1,22 @@
-
-import 'package:abexastore/models/Register.dart';
+import 'package:abexastore/config/Register.dart';
+import 'package:abexastore/ui/Pages/Registro/Registered_CarsScreen.dart';
 import 'package:flutter/material.dart';
-
 class RegisterCars extends StatefulWidget {
-  const RegisterCars({super.key});
+  const RegisterCars({Key? key}) : super(key: key);
 
   @override
   _RegisterCarsState createState() => _RegisterCarsState();
 }
 
 class _RegisterCarsState extends State<RegisterCars> {
-  final TextEditingController marcaController = TextEditingController();
+  final TextEditingController idController = TextEditingController();
   final TextEditingController modeloController = TextEditingController();
-  final TextEditingController sistemaController = TextEditingController();
-  final TextEditingController cajaCambiosController = TextEditingController();
-  final TextEditingController cilindrosController = TextEditingController();
-  final TextEditingController combustibleController = TextEditingController();
-  final TextEditingController millasController = TextEditingController();
-  final TextEditingController anoController = TextEditingController();
+  final TextEditingController locationController = TextEditingController();
+  final TextEditingController priceController = TextEditingController();
+  final TextEditingController KilometrosController = TextEditingController();
+  final TextEditingController fechaController = TextEditingController();
+  final TextEditingController PuertaController = TextEditingController();
+  final TextEditingController DescripcionController = TextEditingController();
 
   List<Car> cars = [];
 
@@ -26,16 +25,16 @@ class _RegisterCarsState extends State<RegisterCars> {
     return Scaffold(
       backgroundColor: Colors.grey[200],
       appBar: AppBar(
-        title: const Text('Registro de Carros'),
+        title: const Text('Registro de Vehiculos'),
       ),
       body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            children: [
-              TextField(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          children: [
+            TextField(
+                controller: idController,
                 decoration: InputDecoration(
-                  labelText: 'Marca del carro',
+                  labelText: 'id del Vehiculo',
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10.0),
                   ),
@@ -45,8 +44,9 @@ class _RegisterCarsState extends State<RegisterCars> {
               ),
               const SizedBox(height: 10.0),
               TextField(
+                controller: modeloController,
                 decoration: InputDecoration(
-                  labelText: 'Modelo del carro',
+                  labelText: 'Modelo del Vehiculo',
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10.0),
                   ),
@@ -56,8 +56,9 @@ class _RegisterCarsState extends State<RegisterCars> {
               ),
               const SizedBox(height: 10.0),
               TextField(
+                controller: locationController,
                 decoration: InputDecoration(
-                  labelText: 'Sistema de Propulsión',
+                  labelText: 'Locacion del Vehiculo',
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10.0),
                   ),
@@ -67,8 +68,9 @@ class _RegisterCarsState extends State<RegisterCars> {
               ),
               const SizedBox(height: 10.0),
               TextField(
+                controller: priceController,
                 decoration: InputDecoration(
-                  labelText: 'Caja de Cambios',
+                  labelText: 'Precio del Vehiculo',
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10.0),
                   ),
@@ -78,8 +80,9 @@ class _RegisterCarsState extends State<RegisterCars> {
               ),
               const SizedBox(height: 10.0),
               TextField(
+                controller: KilometrosController,
                 decoration: InputDecoration(
-                  labelText: 'Cilindros',
+                  labelText: 'Kilometros',
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10.0),
                   ),
@@ -89,8 +92,9 @@ class _RegisterCarsState extends State<RegisterCars> {
               ),
               const SizedBox(height: 10.0),
               TextField(
+                controller: fechaController,
                 decoration: InputDecoration(
-                  labelText: 'Tipo de Combustible',
+                  labelText: 'Año de Fabricacion',
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10.0),
                   ),
@@ -98,69 +102,96 @@ class _RegisterCarsState extends State<RegisterCars> {
                   filled: true,
                 ),
               ),
-              const SizedBox(height: 10.0),
-              TextField(
-                decoration: InputDecoration(
-                  labelText: 'Millas por Galón',
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10.0),
-                  ),
-                  fillColor: Colors.grey[200],
-                  filled: true,
-                ),
-              ),
-              const SizedBox(height: 10.0),
-              TextField(
-                decoration: InputDecoration(
-                  labelText: 'Año del carro',
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10.0),
-                  ),
-                  fillColor: Colors.grey[200],
-                  filled: true,
-                ),
-              ),
-              const SizedBox(height: 10.0),
-              const SizedBox(height: 20.0),
-              ElevatedButton(
-                onPressed: () {
-                  Car newCar = Car(
-                    marca: marcaController.text,
-                    modelo: modeloController.text,
-                    sistemaPropulsion: sistemaController.text,
-                    cajaCambios: cajaCambiosController.text,
-                    cilindros: int.parse(cilindrosController.text),
-                    tipoCombustible: combustibleController.text,
-                    millasPorGalon: double.parse(millasController.text),
-                    fecha: int.parse(anoController.text),
-                  );
 
-                  setState(() {
-                    cars.add(newCar);
-                  });
-                  marcaController.clear();
-                  modeloController.clear();
-                  sistemaController.clear();
-                  cajaCambiosController.clear();
-                  cilindrosController.clear();
-                  combustibleController.clear();
-                  millasController.clear();
-                  anoController.clear();
-                },
-                style: ElevatedButton.styleFrom(
-                  primary: Colors.blue,
-                  onPrimary: Colors.white,
-                  shape: RoundedRectangleBorder(
+              const SizedBox(height: 10.0),
+              TextField(
+                controller: PuertaController,
+                decoration: InputDecoration(
+                  labelText: 'Puertas del Vehiculo',
+                  border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10.0),
                   ),
+                  fillColor: Colors.grey[200],
+                  filled: true,
                 ),
-                child: Text('Registrar Carro'),
               ),
-            ],
-          ),
+              const SizedBox(height: 10.0),
+              TextField(
+                controller: DescripcionController,
+                decoration: InputDecoration(
+                  labelText: 'Descripcion del Vehiculo',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  fillColor: Colors.grey[200],
+                  filled: true,
+                ),
+              ),
+
+            const SizedBox(height: 10.0),
+            const SizedBox(height: 20.0),
+            ElevatedButton(
+              onPressed: () {
+              Car newCar = Car(
+                id: int.parse(idController.text),
+                modelo: modeloController.text,
+                location: locationController.text,
+                price: double.parse(priceController.text),
+                Kilometros: int.parse(KilometrosController.text),
+                fecha: int.parse(fechaController.text),
+                Puerta: int.parse(PuertaController.text),
+                Descripcion: DescripcionController.text,
+              );
+
+              setState(() {
+                cars.add(newCar);
+              });
+
+              // Limpiar los controladores después de agregar el coche
+              idController.clear();
+              modeloController.clear();
+              locationController.clear();
+              priceController.clear();
+              KilometrosController.clear();
+              fechaController.clear();
+              PuertaController.clear();
+              DescripcionController.clear();
+
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => RegisteredCarsScreen(
+                    registeredCars: cars,
+                  ),
+                ),
+              );
+            },
+              style: ElevatedButton.styleFrom(
+                foregroundColor: Colors.white,
+                backgroundColor: Colors.blue,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
+              ),
+              child: const Text('Registrar Vehiculo'),
+            ),
+          ],
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => RegisteredCarsScreen(
+                registeredCars: cars,
+              ),
+            ),
+          );
+        },
+        tooltip: 'Ver vehículos registrados',
+        child: Icon(Icons.folder),
       ),
     );
   }
 }
-

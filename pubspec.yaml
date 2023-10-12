@@ -40,6 +40,8 @@ dependencies:
   flare_flutter: ^3.0.2
   another_flushbar: ^1.12.30
   fluttertoast: ^8.2.2
+  provider: ^6.0.5
+  sqflite: ^2.2.8+4
 
 dev_dependencies:
   flutter_test:

@@ -1,4 +1,4 @@
-// ignore_for_file: file_names
+// ignore_for_file: file_names, deprecated_member_use
 
 import 'package:abexastore/ui/Pages/home/home_screen.dart';
 import 'package:flutter/material.dart';
@@ -39,7 +39,7 @@ class _CardLoginState extends State<CardLogin> {
     
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => HomeScreen()),
+      MaterialPageRoute(builder: (context) => const HomeScreen()),
     );
   } else {
     ScaffoldMessenger.of(context).showSnackBar(
@@ -107,7 +107,7 @@ class _CardLoginState extends State<CardLogin> {
               const SizedBox(height: 16.0),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  primary: Color.fromARGB(255, 10, 53, 88),
+                  primary: const Color.fromARGB(255, 10, 53, 88),
                 ),
                 onPressed: () {
                   _login(context); 

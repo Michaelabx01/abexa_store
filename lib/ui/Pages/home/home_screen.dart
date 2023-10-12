@@ -1,33 +1,38 @@
+// ignore_for_file: library_private_types_in_public_api, prefer_final_fields
+
+import 'dart:developer';
+import 'package:abexastore/config/cars.dart';
 import 'package:flutter/material.dart';
-import 'package:abexastore/models/cars.dart';
 import 'package:abexastore/ui/Pages/Registro/Register_cars.dart';
 import 'package:abexastore/ui/Pages/Venta/shopping_cars.dart';
 
 class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
+
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
   TextEditingController _searchController = TextEditingController();
-  List<CarModel> _filteredCarModels = carModels; // Inicializar con todos los carros.
-  bool isListVisible = false; // Variable para controlar la visibilidad de la lista.
+  List<CarModel> _filteredCarModels = carModels; 
+  bool isListVisible = false; 
 
   void _filterCars() {
     final searchTerm = _searchController.text.toLowerCase();
     setState(() {
       _filteredCarModels = carModels.where((car) {
-        return car.name.toLowerCase().contains(searchTerm) ||
+        return car.modelo.toLowerCase().contains(searchTerm) ||
             car.location.toLowerCase().contains(searchTerm);
       }).toList();
-      isListVisible = searchTerm.isNotEmpty; // Mostrar la lista si hay un término de búsqueda.
+      isListVisible = searchTerm.isNotEmpty; 
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 1, 2, 64),
+      backgroundColor: const Color.fromARGB(255, 1, 2, 64),
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
@@ -51,7 +56,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
                   Container(
-                    padding: EdgeInsets.symmetric(horizontal: 10.0),
+                    padding: const EdgeInsets.symmetric(horizontal: 10.0),
                     decoration: BoxDecoration(
                       color: Colors.grey[200],
                       borderRadius: BorderRadius.circular(10.0),
@@ -61,7 +66,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       onChanged: (value) {
                         _filterCars(); // Trigger filtering when the text changes.
                       },
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         hintText: 'Buscar...',
                         border: InputBorder.none,
                       ),
@@ -80,7 +85,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: TextButton(
                       onPressed: _filterCars, // Trigger filtering when the button is pressed.
                       child: const Text(
-                        'Buscar Coche',
+                        'Buscar Vehiculos',
                         style: TextStyle(color: Colors.white),
                       ),
                     ),
@@ -97,12 +102,12 @@ class _HomeScreenState extends State<HomeScreen> {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => RegisterCars()),
+                      MaterialPageRoute(builder: (context) => const RegisterCars()),
                     );
                   },
                   onLongPress: () {
                     
-                    print('Botón presionado largo');
+                    log('Boton de Registro de Vehiculos');
                   },
                   style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.resolveWith<Color>(
@@ -119,14 +124,14 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
                   ),
-                  child: const Text('Registro de Carros'),
+                  child: const Text('Registro de Vehiculos'),
                 ),
 
                   ElevatedButton(
                   onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => ShoppingScreen()),
+                        MaterialPageRoute(builder: (context) =>  ShoppingScreen()),
                       );
                     },
                   onLongPress: () {
@@ -146,7 +151,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
                   ),
-                  child: const Text('Venta de Carros'),
+                  child: const Text('Venta de Vehiculos'),
                 ),
 
                 ],
@@ -162,7 +167,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: ListTile(
                       contentPadding: const EdgeInsets.all(10.0),
                       leading: Image.asset(car.imageAsset, width: 80, height: 80),
-                      title: Text(car.name),
+                      title: Text(car.modelo),
                       subtitle: Text(car.location),
                       trailing: Text('€ ${car.price.toStringAsFixed(2)}'),
                     ),
