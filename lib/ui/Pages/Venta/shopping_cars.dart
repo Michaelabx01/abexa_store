@@ -6,7 +6,7 @@ import 'package:abexastore/ui/Pages/Detalles/CarDetailScreen.dart';
 
 class Badge extends StatelessWidget {
   final Widget child;
-  final int value; // Change the value to an int
+  final int value; 
 
   const Badge({
     Key? key,
@@ -34,7 +34,7 @@ class Badge extends StatelessWidget {
               minHeight: 16,
             ),
             child: Text(
-              value.toString(), // Display the value as a string
+              value.toString(), 
               style: const TextStyle(
                 color: Colors.white,
                 fontSize: 12,
@@ -134,8 +134,8 @@ class Shopping extends StatelessWidget {
                   Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Container(
-                      width: 150,  // Maximum width for the car model modelo
+                    SizedBox(
+                      width: 150,  
                       child: Text(
                         carModel.modelo,
                         style: const TextStyle(
@@ -153,7 +153,7 @@ class Shopping extends StatelessWidget {
                   const Spacer(),
                   ElevatedButton(
                     onPressed: () {
-                      // Acción cuando se hace clic en el botón "Comprar"
+                      
                       addToCart(carModel);
                     },
                     child: const Text('Comprar'),

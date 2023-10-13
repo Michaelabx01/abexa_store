@@ -1,7 +1,6 @@
-// ignore_for_file: unused_field, library_private_types_in_public_api, unused_element
+// ignore_for_file: unused_field, library_private_types_in_public_api
 
 import 'package:abexastore/ui/Pages/Venta/Archive_Shopping.dart';
-import 'package:abexastore/utils/message.dart';
 import 'package:flutter/material.dart';
 import 'package:abexastore/config/cars.dart';
 
@@ -18,21 +17,6 @@ class _CarritoScreenState extends State<CarritoScreen> {
   final Map<CarModel, int> _carroCount = {};
   final List<CarModel> _archivedCars = [];
   CarModel? _lastRemovedCar;
-  int? _lastRemovedIndex;
-
-    void _showUndoSnackBar() {
-    showUndoSnackBar(
-      context: context,
-      message: 'Vehículo eliminado',
-      onUndo: () {
-        setState(() {
-          if (_lastRemovedIndex != null && _lastRemovedCar != null) {
-            widget.carrosSeleccionados.insert(_lastRemovedIndex!, _lastRemovedCar!);
-          }
-        });
-      },
-    );
-  }
 
   @override
   void initState() {
@@ -53,6 +37,7 @@ class _CarritoScreenState extends State<CarritoScreen> {
     widget.carrosSeleccionados.add(carModel);
   });
 }
+
 
   void _deleteCar(CarModel carModel) {
     setState(() {
@@ -109,9 +94,6 @@ class _CarritoScreenState extends State<CarritoScreen> {
         } else if (direction == DismissDirection.endToStart) {
           _deleteCar(carModel);
           _lastRemovedCar = widget.carrosSeleccionados.removeAt(widget.carrosSeleccionados.indexOf(carModel));
-          _lastRemovedIndex = widget.carrosSeleccionados.indexOf(carModel);
-          _showUndoSnackBar();
-          
         }
       },
       background: Container(

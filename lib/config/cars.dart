@@ -312,4 +312,16 @@ CarModel(
   Descripcion: 'El Helitransporte, también conocido como "Helicarrier", es un vehículo volador utilizado por S.H.I.E.L.D. en el Universo Cinematográfico de Marvel (MCU). Es una plataforma aérea de alta tecnología que sirve como centro de comando móvil y base de operaciones para los Vengadores y otros agentes de S.H.I.E.L.D.',
   quantity: 0,
 ),
+CarModel(
+  id: 22,
+  modelo: 'McLaren F1 Google Edition',
+  location: 'United Kingdom',
+  price: 250000,
+  imageAsset: 'assets/images/McLaren.png',
+  Kilometros: 5000,
+  fecha: 2022,
+  Puerta: '2',
+  Descripcion: 'El McLaren es un automóvil deportivo de alta gama producido por el fabricante británico McLaren Automotive. Es reconocido por su rendimiento excepcional y diseño aerodinámico. Este modelo en particular tiene el logo de Google en los tapacubos, destacando su asociación con la tecnología y la innovación.',
+  quantity: 3,
+)
 ];
