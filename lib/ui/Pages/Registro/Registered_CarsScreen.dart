@@ -1,16 +1,36 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:abexastore/config/Register.dart';
+import 'package:abexastore/utils/message.dart';
 import 'package:flutter/material.dart';
 
 class RegisteredCarsScreen extends StatefulWidget {
   final List<Car> registeredCars;
 
-  RegisteredCarsScreen({required this.registeredCars});
+  const RegisteredCarsScreen({Key? key, required this.registeredCars}) : super(key: key);
 
   @override
   _RegisteredCarsScreenState createState() => _RegisteredCarsScreenState();
 }
 
 class _RegisteredCarsScreenState extends State<RegisteredCarsScreen> {
+  Car? _lastRemovedCar;
+  int? _lastRemovedIndex;
+
+  void _showUndoSnackBar() {
+    showUndoSnackBar(
+      context: context,
+      message: 'Vehículo eliminado',
+      onUndo: () {
+        setState(() {
+          if (_lastRemovedIndex != null && _lastRemovedCar != null) {
+            widget.registeredCars.insert(_lastRemovedIndex!, _lastRemovedCar!);
+          }
+        });
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,8 +46,11 @@ class _RegisteredCarsScreenState extends State<RegisteredCarsScreen> {
             key: Key(car.id.toString()),
             onDismissed: (direction) {
               setState(() {
-                widget.registeredCars.removeAt(index);
+                _lastRemovedCar = widget.registeredCars.removeAt(index);
+                _lastRemovedIndex = index;
               });
+
+              _showUndoSnackBar();
             },
             background: Container(
               color: Colors.grey[200],
@@ -38,45 +61,29 @@ class _RegisteredCarsScreenState extends State<RegisteredCarsScreen> {
                 color: Colors.black,
               ),
             ),
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Card(
-                elevation: 4,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15.0),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Column(
-                    children: [
-                     ColoredBox(
+            child: Card(
+              elevation: 4,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15.0),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Row(
+                  children: [
+                    ColoredBox(
                       color: Colors.white,
                       child: Padding(
-                        padding: const EdgeInsets.only(
-                          left: 8.0,
-                          right: 8.0,
-                          top: 8.0,
-                          bottom: 16.0,
-                        ),
-                        child: SizedBox(
-                          width: 20,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: const [
-                            Center(
-                            child: Icon(
-                              Icons.car_crash,
-                              size: 50.0,
-                              color: Colors.grey,
-                            ),
-                          )
-                            ],
-                          ),
+                        padding: const EdgeInsets.all(8.0),
+                        child: Image.asset(
+                          'assets/images/icon.png',
+                          width: 150.0,
+                          height: 150.0,
                         ),
                       ),
                     ),
-                      const VerticalDivider(width: 1, thickness: 1),
-                      Column(
+                    const SizedBox(width: 16),
+                    Expanded(
+                      child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
                           Text(
@@ -86,25 +93,31 @@ class _RegisteredCarsScreenState extends State<RegisteredCarsScreen> {
                               fontSize: 24,
                             ),
                           ),
-                          const SizedBox(height: 16),
+                          const SizedBox(height: 10),
                           Text('Modelo: ${car.modelo}',
                               style: const TextStyle(fontSize: 18)),
+                          const SizedBox(height: 2),
                           Text('Locación: ${car.location}',
                               style: const TextStyle(fontSize: 18)),
+                          const SizedBox(height: 2),
                           Text('Precio: \$${car.price.toStringAsFixed(2)}',
                               style: const TextStyle(fontSize: 18)),
+                          const SizedBox(height: 2),
                           Text('Km: ${car.Kilometros}',
                               style: const TextStyle(fontSize: 18)),
+                          const SizedBox(height: 2),
                           Text('Año: ${car.fecha}',
                               style: const TextStyle(fontSize: 18)),
+                          const SizedBox(height: 2),
                           Text('Puertas: ${car.Puerta}',
                               style: const TextStyle(fontSize: 18)),
+                          const SizedBox(height: 2),
                           Text('Descripción: ${car.Descripcion}',
                               style: const TextStyle(fontSize: 18)),
                         ],
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
             ),

@@ -1,11 +1,12 @@
-// ignore_for_file: file_names, deprecated_member_use
+// ignore_for_file: use_key_in_widget_constructors, library_private_types_in_public_api
 
 import 'package:abexastore/ui/Pages/home/home_screen.dart';
+import 'package:abexastore/utils/message.dart';
+import 'package:another_flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import 'package:go_router/go_router.dart'; // Importa Flushbar
 
 class LoginScreen extends StatelessWidget {
-  // ignore: use_key_in_widget_constructors
   const LoginScreen({Key? key});
 
   @override
@@ -18,11 +19,9 @@ class LoginScreen extends StatelessWidget {
 }
 
 class CardLogin extends StatefulWidget {
-  // ignore: use_key_in_widget_constructors
   const CardLogin({Key? key});
 
   @override
-  // ignore: library_private_types_in_public_api
   _CardLoginState createState() => _CardLoginState();
 }
 
@@ -36,20 +35,14 @@ class _CardLoginState extends State<CardLogin> {
   final password = _passwordController.text;
 
   if (username == "admin" && password == "123") {
-    
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => const HomeScreen()),
     );
   } else {
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text('Credenciales incorrectas'),
-      ),
-    );
+    CustomFlushbar.showErrorFlushbar(context, 'Credenciales incorrectas');
   }
 }
-
 
   @override
   Widget build(BuildContext context) {
@@ -110,7 +103,7 @@ class _CardLoginState extends State<CardLogin> {
                   primary: const Color.fromARGB(255, 10, 53, 88),
                 ),
                 onPressed: () {
-                  _login(context); 
+                  _login(context);
                 },
                 child: const Text('Ingresar', style: TextStyle(color: Colors.white)),
               ),

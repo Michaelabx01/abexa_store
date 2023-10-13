@@ -6,7 +6,7 @@ import 'package:abexastore/ui/Pages/Detalles/CarDetailScreen.dart';
 
 class Badge extends StatelessWidget {
   final Widget child;
-  final String value;
+  final int value; // Change the value to an int
 
   const Badge({
     Key? key,
@@ -34,10 +34,10 @@ class Badge extends StatelessWidget {
               minHeight: 16,
             ),
             child: Text(
-              value,
+              value.toString(), // Display the value as a string
               style: const TextStyle(
                 color: Colors.white,
-                fontSize: 10,
+                fontSize: 12,
                 fontWeight: FontWeight.bold,
               ),
               textAlign: TextAlign.center,
@@ -48,7 +48,6 @@ class Badge extends StatelessWidget {
     );
   }
 }
-
 class ShoppingScreen extends StatefulWidget {
   static const String modelo = 'shopping_screen';
 
@@ -78,19 +77,20 @@ class _ShoppingScreenState extends State<ShoppingScreen> {
         centerTitle: true,
         actions: <Widget>[
           IconButton(
-            icon: Badge(
-              value: carrosSeleccionados.length.toString(),
-              child: const Icon(Icons.shopping_cart),
-            ),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => CarritoScreen( carrosSeleccionados : carrosSeleccionados),
-                ),
-              );
-            },
+          icon: Badge(
+            value: carrosSeleccionados.length,
+            child: const Icon(Icons.shopping_cart),
           ),
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => CarritoScreen(carrosSeleccionados: carrosSeleccionados),
+              ),
+            );
+          },
+        ),
+
         ],
       ),
       body: Shopping(carModels: carModels, addToCart: addToCart),

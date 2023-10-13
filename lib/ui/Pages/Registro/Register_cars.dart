@@ -1,5 +1,9 @@
+// ignore_for_file: unused_import, non_constant_identifier_names, library_private_types_in_public_api
+
 import 'package:abexastore/config/Register.dart';
 import 'package:abexastore/ui/Pages/Registro/Registered_CarsScreen.dart';
+import 'package:abexastore/utils/message.dart';
+import 'package:another_flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 class RegisterCars extends StatefulWidget {
   const RegisterCars({Key? key}) : super(key: key);
@@ -17,7 +21,7 @@ class _RegisterCarsState extends State<RegisterCars> {
   final TextEditingController fechaController = TextEditingController();
   final TextEditingController PuertaController = TextEditingController();
   final TextEditingController DescripcionController = TextEditingController();
-
+  
   List<Car> cars = [];
 
   @override
@@ -131,41 +135,52 @@ class _RegisterCarsState extends State<RegisterCars> {
             const SizedBox(height: 10.0),
             const SizedBox(height: 20.0),
             ElevatedButton(
-              onPressed: () {
-              Car newCar = Car(
-                id: int.parse(idController.text),
-                modelo: modeloController.text,
-                location: locationController.text,
-                price: double.parse(priceController.text),
-                Kilometros: int.parse(KilometrosController.text),
-                fecha: int.parse(fechaController.text),
-                Puerta: int.parse(PuertaController.text),
-                Descripcion: DescripcionController.text,
-              );
+            onPressed: () {
+              if (idController.text.isEmpty ||
+                  modeloController.text.isEmpty ||
+                  locationController.text.isEmpty ||
+                  priceController.text.isEmpty ||
+                  KilometrosController.text.isEmpty ||
+                  fechaController.text.isEmpty ||
+                  PuertaController.text.isEmpty ||
+                  DescripcionController.text.isEmpty) {
+                CustomFlushbar.showErrorFlushbar(context, 'Por favor, completa todos los campos.');
+                return;
+              }
 
-              setState(() {
-                cars.add(newCar);
-              });
+                Car newCar = Car(
+                  id: int.parse(idController.text),
+                  modelo: modeloController.text,
+                  location: locationController.text,
+                  price: double.parse(priceController.text),
+                  Kilometros: int.parse(KilometrosController.text),
+                  fecha: int.parse(fechaController.text),
+                  Puerta: int.parse(PuertaController.text),
+                  Descripcion: DescripcionController.text,
+                );
 
-              // Limpiar los controladores después de agregar el coche
-              idController.clear();
-              modeloController.clear();
-              locationController.clear();
-              priceController.clear();
-              KilometrosController.clear();
-              fechaController.clear();
-              PuertaController.clear();
-              DescripcionController.clear();
+                setState(() {
+                  cars.add(newCar);
+                });
 
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => RegisteredCarsScreen(
-                    registeredCars: cars,
+                idController.clear();
+                modeloController.clear();
+                locationController.clear();
+                priceController.clear();
+                KilometrosController.clear();
+                fechaController.clear();
+                PuertaController.clear();
+                DescripcionController.clear();
+
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => RegisteredCarsScreen(
+                      registeredCars: cars,
+                    ),
                   ),
-                ),
-              );
-            },
+                );
+              },
               style: ElevatedButton.styleFrom(
                 foregroundColor: Colors.white,
                 backgroundColor: Colors.blue,
