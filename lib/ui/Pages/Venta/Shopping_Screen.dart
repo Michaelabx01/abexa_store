@@ -1,5 +1,4 @@
-// ignore_for_file: unused_field, library_private_types_in_public_api
-
+import 'package:abexastore/Pago/Payment.dart';
 import 'package:abexastore/ui/Pages/Venta/Archive_Shopping.dart';
 import 'package:flutter/material.dart';
 import 'package:abexastore/config/cars.dart';
@@ -30,14 +29,13 @@ class _CarritoScreenState extends State<CarritoScreen> {
     }
   }
 
- void _archiveCar(CarModel carModel) {
-  setState(() { 
-    _carroCount.remove(carModel);  
-    _archivedCars.add(carModel);
-    widget.carrosSeleccionados.add(carModel);
-  });
-}
-
+  void _archiveCar(CarModel carModel) {
+    setState(() {
+      _carroCount.remove(carModel);
+      _archivedCars.add(carModel);
+      widget.carrosSeleccionados.add(carModel);
+    });
+  }
 
   void _deleteCar(CarModel carModel) {
     setState(() {
@@ -45,11 +43,26 @@ class _CarritoScreenState extends State<CarritoScreen> {
     });
   }
 
+  void _navigateToPaymentScreen() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => PaymentScreen(carrosSeleccionados: widget.carrosSeleccionados),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Carrito de Compras'),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.payment),
+            onPressed: _navigateToPaymentScreen,
+          ),
+        ],
       ),
       body: ListView.builder(
         itemCount: _carroCount.length,
@@ -61,35 +74,29 @@ class _CarritoScreenState extends State<CarritoScreen> {
         },
       ),
       floatingActionButton: FloatingActionButton(
-  onPressed: () async {
-    
-    final restoredCar = await Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => ArchivedCarsScreen(archivedCars: _archivedCars)),
-    );
+        onPressed: () async {
+          final restoredCar = await Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => ArchivedCarsScreen(archivedCars: _archivedCars)),
+          );
 
-    if (restoredCar != null) {
-      setState(() {
-        widget.carrosSeleccionados.add(restoredCar);
-        _carroCount[restoredCar] = _carroCount.containsKey(restoredCar) ? _carroCount[restoredCar]! + 1 : 1;
-      });
-    }
-  },
-  child: const Icon(Icons.archive),
-),
-
+          if (restoredCar != null) {
+            setState(() {
+              widget.carrosSeleccionados.add(restoredCar);
+              _carroCount[restoredCar] = _carroCount.containsKey(restoredCar) ? _carroCount[restoredCar]! + 1 : 1;
+            });
+          }
+        },
+        child: const Icon(Icons.archive),
+      ),
     );
   }
 
-  Widget _buildCarCard(
-    CarModel carModel, 
-    int count
-    ) {
+  Widget _buildCarCard(CarModel carModel, int count) {
     return Dismissible(
       key: Key(carModel.modelo),
       onDismissed: (direction) {
         if (direction == DismissDirection.startToEnd) {
-          
           _archiveCar(carModel);
         } else if (direction == DismissDirection.endToStart) {
           _deleteCar(carModel);
@@ -158,4 +165,3 @@ class _CarritoScreenState extends State<CarritoScreen> {
     );
   }
 }
-
